@@ -434,6 +434,277 @@ Conduct vulnerability assessments of systems and networks, analyze findings, and
 
 ---
 
+## Hands-On Vulnerability Remediation: Nessus Security Assessment
+
+### Project Overview
+
+**Type:** Vulnerability Assessment & Remediation  
+**Tool:** Tenable Nessus Professional  
+**Target:** Metasploitable2 VM (intentionally vulnerable system)  
+**Format:** Technical Lab + Documentation
+
+[**📄 View Full Vulnerability Assessment Documentation (PDF)**](./Nessus_Vulnerability_Assessment.pdf)
+
+**Objective:**  
+Use industry-standard vulnerability scanner to identify security weaknesses, analyze findings across severity levels, and implement technical remediations to secure the system.
+
+**Scenario:**  
+Conduct comprehensive vulnerability scan, select three vulnerabilities of different severity levels (Critical, Medium, Low), implement fixes, and validate remediation through re-scanning.
+
+### Assessment Methodology
+
+#### Phase 1: Initial Vulnerability Scan
+
+**Scanning Configuration:**
+- Tool: Tenable Nessus Vulnerability Scanner
+- Target: Metasploitable2 Linux system
+- Scan type: Comprehensive security audit
+- Network: Internal lab environment
+
+**Initial Findings:**
+- Multiple vulnerabilities identified across severity spectrum
+- Critical, High, Medium, and Low severity issues detected
+- Network services, configurations, and cryptographic weaknesses found
+
+#### Phase 2: Vulnerability Analysis & Prioritization
+
+**Selected Vulnerabilities for Remediation:**
+
+**1. Critical: NFS Exported Share Information Disclosure**
+- **Severity:** Critical (CVSS High)
+- **Risk:** Remote attackers can mount NFS shares without authentication
+- **Impact:** Unauthorized file access, potential data exfiltration or malware deployment
+- **Attack Vector:** Network-accessible file shares with no access controls
+
+**2. Medium: Telnet Service Enabled (Cleartext Protocol)**
+- **Severity:** Medium
+- **Risk:** Unencrypted remote access exposes credentials
+- **Impact:** Credential theft via network sniffing, man-in-the-middle attacks
+- **Attack Vector:** Plaintext transmission on port 23
+
+**3. Low: Weak SSH MAC Algorithms Enabled**
+- **Severity:** Low
+- **Risk:** Cryptographic weakness allows potential hash collision attacks
+- **Impact:** Message integrity compromise, potential authentication bypass
+- **Attack Vector:** Cryptographic attacks against weak MAC algorithms (MD5-based)
+
+### Technical Remediation
+
+#### Remediation 1: NFS Share Access Control (Critical)
+
+**Problem Identified:**
+- NFS shares accessible without authentication
+- Anonymous mounting possible from any network location
+- Read/write access available to unauthorized users
+
+**Solution Implemented:**
+
+**Step 1: Mount Configuration**
+- Mounted Metasploitable2 /home directory to /tmp/safemnt
+- Validated proper mount points and permissions
+
+**Step 2: Access Control Lists**
+- Modified `/etc/hosts.deny`: Added `portmap: ALL` to block all external access
+- Modified `/etc/hosts.allow`: Added `portmap: 192.168.35.0/255.255.255.0` to whitelist trusted subnet only
+- Implemented network-based access control (principle of least privilege)
+
+**Security Impact:**
+- Eliminated anonymous NFS access
+- Restricted access to trusted network segment only
+- Prevented unauthorized file system mounting
+
+**Validation:**
+- Re-scanned with Nessus
+- Critical vulnerability no longer detected
+- Access controls verified functional
+
+#### Remediation 2: Telnet Service Mitigation (Medium)
+
+**Problem Identified:**
+- Telnet server listening on port 23
+- Cleartext protocol transmits credentials unencrypted
+- Modern SSH alternative not enforced
+
+**Solution Implemented:**
+
+**Firewall Configuration:**
+```bash
+sudo ufw enable              # Enable firewall (was disabled)
+sudo ufw deny 23             # Block Telnet port
+sudo ufw status              # Verify rule active
+
+**Approach Rationale:**
+- Firewall-based blocking chosen due to missing Telnet config files
+- More secure than service-level disable (defense in depth)
+- Immediate mitigation without service reconfiguration
+
+**Alternative Consideration:**
+- Preferred solution: Disable Telnet service entirely and mandate SSH
+- Implemented solution: Network-level blocking as practical alternative
+
+**Security Impact:**
+- Telnet port no longer accessible
+- Forced migration to SSH (encrypted alternative)
+- Reduced attack surface
+
+**Validation:**
+- Port scan confirmed port 23 blocked
+- Nessus re-scan verified vulnerability remediated
+
+#### Remediation 3: SSH Cryptographic Hardening (Low)
+
+**Problem Identified:**
+- Weak Message Authentication Code (MAC) algorithms enabled
+- MD5-based MACs vulnerable to collision attacks
+- Cryptographic downgrade attacks possible
+
+**Solution Implemented:**
+
+SSH Configuration Hardening - Modified SSH config file with new MAC configuration: MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,
+hmac-ripemd160-etm@openssh.com,umac-128-etm@openssh.com, hmac-sha2-512,hmac-sha2-256,hmac-ripemd160,umac-128@openssh.com
+
+**Cryptographic Improvements:**
+- Removed MD5-based MAC algorithms
+- Implemented SHA-2 family (SHA-256, SHA-512)
+- Added Encrypt-Then-MAC (ETM) variants for additional security
+- Maintained compatibility with modern SSH clients
+
+**System Changes:**
+- Restarted SSH service to apply configuration
+- Rebooted system to ensure persistent changes
+
+**Security Impact:**
+- Eliminated weak cryptographic algorithms
+- Strengthened message integrity protection
+- Aligned with current security best practices
+
+**Validation:**
+- SSH service restart confirmed
+- Nessus re-scan verified weak algorithms no longer advertised
+- Cryptographic compliance achieved
+
+### Validation & Results
+
+**Post-Remediation Scan:**
+
+Re-scan using same Nessus profile to validate remediation effectiveness.
+
+**Results:**
+- Critical vulnerability: RESOLVED ✅
+- Medium vulnerability: RESOLVED ✅
+- Low vulnerability: RESOLVED ✅
+- Overall security posture significantly improved
+- Remaining vulnerabilities documented for future remediation cycles
+
+**Before vs After:**
+- Initial scan: Multiple critical and medium issues
+- Post-remediation: Selected vulnerabilities successfully mitigated
+- Measurable security improvement demonstrated
+
+### Skills Demonstrated
+
+**Vulnerability Assessment:**
+- Nessus scanner deployment and configuration
+- Vulnerability severity analysis (CVSS understanding)
+- Risk prioritization across multiple findings
+- Scan result interpretation
+
+**Technical Remediation:**
+- Linux system administration (firewall, services, configuration files)
+- Access control implementation (hosts.allow/deny)
+- Network security configuration (NFS, firewall rules)
+- Cryptographic hardening (SSH configuration)
+- Service management and validation
+
+**Security Principles:**
+- Defense in depth (multiple control layers)
+- Principle of least privilege (restrictive access controls)
+- Secure defaults (strong cryptography)
+- Validation and verification (re-scanning)
+
+**Professional Practices:**
+- Systematic remediation approach
+- Documentation of changes
+- Before/after validation
+- Risk-based prioritization
+
+### Forensics & Incident Response Relevance
+
+**Why This Matters for Forensics:**
+
+**Vulnerability Understanding:**
+- Forensic investigators often determine how systems were compromised
+- Understanding vulnerabilities helps identify likely attack vectors
+- Exploitation artifacts differ by vulnerability type
+
+**Evidence Recognition:**
+- NFS exploitation leaves network logs, mount records
+- Telnet attacks show cleartext credentials in packet captures
+- Weak SSH crypto may indicate downgrade attacks in logs
+
+**Incident Reconstruction:**
+- Knowing common vulnerabilities helps build attack timelines
+- Understanding remediation shows what "secure" vs "vulnerable" looks like
+- Helps identify whether attacker used known vulnerabilities
+
+**System Baseline Knowledge:**
+- Forensic analysts need to know secure configurations
+- Identifying misconfigurations is key to root cause analysis
+- Understanding remediation informs recommendations
+
+### Real-World Application
+
+**This project simulates:**
+- Corporate vulnerability management programs
+- Compliance-driven security assessments
+- Penetration test remediation
+- Continuous security improvement cycles
+
+**Applicable to:**
+- Security Operations Center (vulnerability tracking)
+- Incident Response (identifying attack vectors post-breach)
+- Digital Forensics (understanding how systems were exploited)
+- Compliance audits (PCI DSS, NIST, ISO 27001)
+
+### Tools & Technologies
+
+- **Tenable Nessus** - Industry-standard vulnerability scanner
+- **Metasploitable2** - Intentionally vulnerable training system
+- **Linux CLI** - System administration and configuration
+- **UFW (Uncomplicated Firewall)** - Linux firewall management
+- **SSH/NFS** - Network services configuration
+- **Access Control Lists** - Host-based security controls
+
+### Key Takeaways
+
+1. **Vulnerability Scanning is Foundational:** Regular scanning identifies security gaps before attackers do
+2. **Severity Matters:** Prioritizing critical issues provides maximum risk reduction
+3. **Defense in Depth:** Multiple control layers (firewall + service config) provide better security
+4. **Validation is Essential:** Re-scanning confirms remediation effectiveness
+5. **Documentation Matters:** Clear technical documentation enables knowledge transfer and compliance
+
+### Recommendations Based on Experience
+
+**For Vulnerability Management:**
+- Establish regular scanning cadence (weekly/monthly)
+- Prioritize remediation by severity and exploitability
+- Validate all remediations through re-scanning
+- Document configuration changes for audit trail
+
+**For System Hardening:**
+- Disable unnecessary services (Telnet, legacy protocols)
+- Implement strong cryptography (modern algorithms only)
+- Use access controls restrictively (whitelist approach)
+- Apply principle of least privilege universally
+
+---
+
+**Full technical documentation with screenshots and detailed remediation steps available in portfolio.**
+
+*This project demonstrates practical vulnerability assessment, risk analysis, technical remediation, and validation skills - essential for security operations, incident response, and forensic investigation roles.*
+
+---
+
 ## Network Security Configuration Projects
 
 ### Sophos & FortiNet Firewall Configuration
