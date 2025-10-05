@@ -529,10 +529,15 @@ Conduct comprehensive vulnerability scan, select three vulnerabilities of differ
 **Solution Implemented:**
 
 **Firewall Configuration:**
-```bash
+```
 sudo ufw enable              # Enable firewall (was disabled)
+```
+```
 sudo ufw deny 23             # Block Telnet port
+```
+```
 sudo ufw status              # Verify rule active
+```
 
 **Approach Rationale:**
 - Firewall-based blocking chosen due to missing Telnet config files
