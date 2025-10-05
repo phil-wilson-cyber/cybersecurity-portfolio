@@ -73,9 +73,9 @@ Analyzed brute force attack techniques, password hash cracking, and privilege es
 **Forensics Skills:** Attack pattern recognition, hash analysis, privilege escalation indicators, evidence collection
 
 ### 5. [Academic Digital Forensics Projects](./academic-projects.md)
-Professional security projects completed during Cybersecurity Analyst diploma, including digital forensics investigation (Rhino NIST Hunt), incident response procedures, vulnerability assessments, and MITRE ATT&CK framework application.
+Professional security projects including **[full-scope penetration test (view report PDF)](./EthicalHackingGroupProject_Finished.pdf)**, digital forensics investigation (Rhino NIST Hunt), incident response procedures, and MITRE ATT&CK framework application.
 
-**Forensics Skills:** Digital evidence handling, forensic investigation methodology, incident response procedures
+**Forensics Skills:** Digital evidence handling, forensic investigation methodology, incident response, professional report writing
 
 ## Professional Experience
 
