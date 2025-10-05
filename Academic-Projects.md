@@ -299,8 +299,9 @@ Investigate a USB drive image (RHINOUSB.dd) to recover deleted files and determi
 - Targeted file types: JPG, GIF, PDF, OLE (Office documents)
 
 **Command Executed:**
-**```bash
+```
 sudo foremost -v -t jpg,gif,pdf,ole -i /dev/loop0 -o /home/sansforensics/Desktop/Rhino\ Output**
+```
 
 ## Incident Response Procedures
 
