@@ -52,27 +52,27 @@ I bring a unique combination of network engineering expertise and forensic analy
 
 ## Digital Forensics Projects
 
-### 1. [Home SOC Lab with Forensics Focus](./soc-lab.md)
+### 1. [Home SOC Lab with Forensics Focus](./SOC-Lab.md)
 Built a Security Operations Center lab environment to practice incident detection, forensic analysis, and investigation techniques. Simulated various attack scenarios and performed forensic analysis using Splunk SIEM and system logs.
 
 **Forensics Skills:** Log analysis, IOC identification, attack timeline reconstruction, evidence correlation
 
-### 2. [Network Forensics: h4cked Challenge](./thm-h4cked.md)
+### 2. [Network Forensics: h4cked Challenge](./THM-h4cked.md)
 Performed comprehensive PCAP analysis to investigate a system compromise. Analyzed network traffic to identify attacker IP, tools used, credentials stolen, and malware deployed. Reconstructed complete attack timeline from packet captures.
 
 **Forensics Skills:** PCAP analysis, protocol forensics, credential extraction, attack reconstruction, timeline analysis
 
-### 3. [Log Analysis & Incident Investigation: Juicy Details](./thm-juicy-details.md)
+### 3. [Log Analysis & Incident Investigation: Juicy Details](./THM-Juicy-Details.md)
 Investigated security breach of e-commerce platform through comprehensive log analysis. Determined attack vector, tools used, timeline of events, and scope of compromise. Documented findings in incident report format.
 
 **Forensics Skills:** System log analysis, incident investigation, IOC identification, timeline reconstruction, forensic reporting
 
-### 4. [Attack Methodology Analysis: Brute It](./thm-brute-it.md)
+### 4. [Attack Methodology Analysis: Brute It](./THM-Brute-It.md)
 Analyzed brute force attack techniques, password hash cracking, and privilege escalation methods. Understanding attacker methodology is critical for forensic investigators to reconstruct incidents and identify evidence.
 
 **Forensics Skills:** Attack pattern recognition, hash analysis, privilege escalation indicators, evidence collection
 
-### 5. [Academic Digital Forensics Projects](./academic-projects.md)
+### 5. [Academic Digital Forensics Projects](./Academic-Projects.md)
 Professional security projects including **[penetration test report (PDF)](./EthicalHackingGroupProject_Finished.pdf)**, **[digital forensics investigation (PDF)](./NIST_Rhino_Hunt_Digital_Forensics.pdf)**, **[vulnerability assessment & remediation (PDF)](./Nessus_Vulnerability_Assessment.pdf)**, and **[Incident Response Plan (PDF)](./Incident_Response_Plan_Malware_Threat.pdf)**.
 
 **Skills:** Digital forensics, penetration testing, vulnerability assessment, incident response, risk analysis, technical remediation
