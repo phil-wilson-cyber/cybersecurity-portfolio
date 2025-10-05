@@ -529,15 +529,15 @@ Conduct comprehensive vulnerability scan, select three vulnerabilities of differ
 **Solution Implemented:**
 
 **Firewall Configuration:**
-# Enable firewall (was disabled)
+Enable firewall (was disabled)
 ```
 sudo ufw enable
 ```
-# Block Telnet port
+Block Telnet port
 ```
 sudo ufw deny 23
 ```
-# Verify rule active
+Verify rule active
 ```
 sudo ufw status
 ```
