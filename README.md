@@ -73,7 +73,7 @@ Analyzed brute force attack techniques, password hash cracking, and privilege es
 **Forensics Skills:** Attack pattern recognition, hash analysis, privilege escalation indicators, evidence collection
 
 ### 5. [Academic Digital Forensics Projects](./academic-projects.md)
-Professional security projects including **[penetration test report (PDF)](./EthicalHackingGroupProject_Finished.pdf)**, **[digital forensics investigation (PDF)](./NIST_Rhino_Hunt_Digital_Forensics.pdf)**, **[vulnerability assessment & remediation (PDF)](./Nessus_Vulnerability_Assessment.pdf)**, incident response procedures, and MITRE ATT&CK framework application.
+Professional security projects including **[penetration test report (PDF)](./EthicalHackingGroupProject_Finished.pdf)**, **[digital forensics investigation (PDF)](./NIST_Rhino_Hunt_Digital_Forensics.pdf)**, **[vulnerability assessment & remediation (PDF)](./Nessus_Vulnerability_Assessment.pdf)**, and **[Incident Response Plan (PDF)](./Incident_Response_Plan_Malware_Threat.pdf)**.
 
 **Skills:** Digital forensics, penetration testing, vulnerability assessment, incident response, risk analysis, technical remediation
 
