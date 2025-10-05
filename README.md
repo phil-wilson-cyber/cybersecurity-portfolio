@@ -77,8 +77,6 @@ Professional security projects including **[penetration test report (PDF)](./Eth
 
 **Skills:** Digital forensics, penetration testing, vulnerability assessment, incident response, risk analysis, technical remediation
 
----
-
 ## Professional Experience
 
 **IT Field Specialist** | Current Role
