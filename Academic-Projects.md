@@ -266,52 +266,41 @@ This project bridges red team (offensive) and blue team (defensive) skills - bot
 
 **Type:** Digital Forensics Investigation  
 **Framework:** NIST Incident Response Methodology  
-**Format:** Lab Exercise + Technical Report
+**Tools:** SIFT Workstation, Foremost (file carving)  
+**Format:** Lab Exercise + Technical Documentation
+
+[**📄 View Full Forensics Investigation Documentation (PDF)**](./NIST%20Rhino%20Hunt%20-%20Digital%20Forensics.pdf)
 
 **Objective:**  
-Conduct a comprehensive digital forensics investigation following NIST guidelines to identify, analyze, and document evidence of a security incident.
+Conduct a comprehensive digital forensics investigation following NIST guidelines to recover hidden files from a USB drive image and determine what happened to evidence.
 
-### Skills Demonstrated
+**Scenario:**  
+Investigate a USB drive image (RHINOUSB.dd) to recover deleted files and determine the fate of a hard drive involved in an incident.
 
-**Forensic Investigation Methodology:**
-- Evidence identification and preservation
-- Chain of custody documentation
-- Forensic imaging and data acquisition
-- File system analysis
-- Timeline reconstruction
-- Evidence correlation across multiple sources
+### Investigation Methodology
 
-**Technical Analysis:**
-- Artifact analysis (browser history, registry, logs)
-- File metadata examination
-- Deleted file recovery
-- User activity reconstruction
-- Identification of indicators of compromise
+#### Phase 1: Environment Setup
 
-**Reporting & Documentation:**
-- Technical forensic report writing
-- Evidence documentation with screenshots
-- Chain of custody maintenance
-- Executive summary for non-technical stakeholders
-- Actionable recommendations
+**Forensic Workstation:**
+- Deployed SIFT Workstation (SANS Investigative Forensic Toolkit)
+- Industry-standard Linux distribution for digital forensics
+- Pre-loaded with forensic analysis tools
 
-### Key Learning Outcomes
+**Evidence Handling:**
+- Mounted USB image as read-only (loop device)
+- Maintained evidence integrity (no writes to original)
+- Created separate output directory for recovered artifacts
 
-1. **Proper Evidence Handling:** Understanding the critical importance of maintaining evidence integrity throughout investigation
-2. **NIST Framework Application:** Practical application of NIST incident response procedures
-3. **Forensic Tool Usage:** Hands-on experience with digital forensics tools and methodologies
-4. **Documentation Standards:** Professional-grade forensic reporting and documentation practices
-5. **Investigative Mindset:** Systematic approach to uncovering and analyzing digital evidence
+#### Phase 2: File Recovery & Analysis
 
-### Real-World Application
+**Tool Used: Foremost**
+- File carving tool for recovering deleted files
+- Extracted files based on headers/footers (signature-based recovery)
+- Targeted file types: JPG, GIF, PDF, OLE (Office documents)
 
-This project simulates actual digital forensics investigations conducted by:
-- Corporate incident response teams
-- Law enforcement digital forensics units
-- Third-party forensic investigators
-- eDiscovery professionals
-
----
+**Command Executed:**
+```bash
+sudo foremost -v -t jpg,gif,pdf,ole -i /dev/loop0 -o /home/sansforensics/Desktop/Rhino\ Output
 
 ## Incident Response Procedures
 
