@@ -42,7 +42,7 @@ I bring a unique combination of network engineering expertise and forensic analy
 
 **Tools & Technologies**
 - **Forensics:** Wireshark, tcpdump, Autopsy (learning)
-- **SIEM:** Splunk, WAzuh, Croudstrike (contuinius learning on all 3)
+- **SIEM:** Splunk, Wazuh (learning)
 - **Log Analysis:** Sysmon, Windows Event Logs, Linux syslogs
 - **Network Analysis:** Nmap, protocol analyzers
 - **Incident Response:** Timeline analysis, IOC extraction
