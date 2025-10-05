@@ -16,7 +16,7 @@ All projects were completed to professional standards with comprehensive documen
 **Client:** Simulated engagement for "EvilCorp"  
 **Team:** 4-person security team (Cyber Genuis INC)  
 **Team Members:** Josh Veinotte, John Mulumba, Philip Wilson, Mathura Mangaleswarren  
-**Completed:** November 2022  
+**Completed:** December 2022  
 **Methodology:** NIST Cybersecurity Framework  
 **Model:** Black Box Testing  
 **Deliverable:** Professional penetration testing report
@@ -299,8 +299,9 @@ Investigate a USB drive image (RHINOUSB.dd) to recover deleted files and determi
 - Targeted file types: JPG, GIF, PDF, OLE (Office documents)
 
 **Command Executed:**
-```bash
+**```bash**
 sudo foremost -v -t jpg,gif,pdf,ole -i /dev/loop0 -o /home/sansforensics/Desktop/Rhino\ Output
+**```bash**
 
 ## Incident Response Procedures
 
