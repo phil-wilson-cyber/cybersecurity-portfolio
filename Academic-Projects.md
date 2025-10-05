@@ -482,6 +482,226 @@ Using CrowdStrike Falcon console:
    - Restore device from clean backup (if available)
    - Verify restored system integrity before reconnection
 
+#### Phase 3: Damage Assessment & Remediation
+
+**SIEM Analysis Using Splunk:**
+
+**Web Traffic Investigation:**
+
+Search indexes for user web activity:
+```
+index=wireshark user="username" url="URL AND url!=.js" | stats count by user url
+```
+
+This query:
+- Aggregates events by user and URL
+- Excludes JavaScript files for cleaner results
+- Provides timeline of web browsing activity
+
+**Timeline Reconstruction:**
+- Set search timeframe to incident window
+- Identify all URLs accessed during suspicious period
+- Correlate web traffic with EDR detections
+
+**Threat Intelligence Analysis:**
+
+For each suspicious URL identified:
+
+1. **VirusTotal Scanning**
+   - Submit URLs to VirusTotal
+   - Review antivirus detection results
+   - Check community reputation scores
+
+2. **Sandbox Investigation**
+   - Create isolated sandbox environment
+   - Navigate to suspicious URLs in controlled environment
+   - Monitor network connections and behavior
+
+3. **IOC Extraction**
+   - Identify associated IP addresses
+   - Document connected domains
+   - Map URL redirection chains
+   - Identify additional malicious infrastructure
+
+**Remediation Actions:**
+
+1. **Network Security Controls**
+   - Blacklist all identified malicious URLs
+   - Block malicious IP addresses at firewall
+   - Update DNS filtering rules
+   - Add IOCs to threat intelligence feeds
+
+2. **Endpoint Remediation**
+   - Run full antivirus/anti-malware scan
+   - Remove malicious files and registry entries
+   - Disable unauthorized browser notifications
+   - Clear browser cache and cookies
+   - Reset browser settings to defaults
+
+3. **System Recovery**
+   - Restore from backup if needed (use earliest clean backup)
+   - Verify system integrity post-restoration
+   - Confirm no persistence mechanisms remain
+
+4. **Post-Remediation Validation**
+   - Re-scan endpoint with multiple AV engines
+   - Verify no suspicious network connections
+   - Monitor for 24-48 hours for reinfection
+
+#### Phase 4: Root Cause Analysis & Lessons Learned
+
+**Incident Reconstruction:**
+
+**Attack Chain Identified:**
+
+1. **Initial Vector:** User performed Google search using specific keywords
+2. **Malicious Result:** Clicked on first search result (SEO poisoning)
+3. **Redirect Chain:** Legitimate-looking site redirected to malicious URL
+4. **CAPTCHA Abuse:** Malicious CAPTCHA page (social engineering)
+5. **User Action:** User clicked CAPTCHA verification
+6. **Second Redirect:** Redirected to second malicious URL
+7. **Notification Abuse:** User clicked "ALLOW Notifications" popup
+8. **Malicious Activity:** Endpoint received spam notification attacks
+
+**Root Cause:**  
+Social engineering attack leveraging search engine optimization (SEO) poisoning and browser notification abuse. No actual malware downloaded, but malicious notifications enabled.
+
+**Impact Assessment:**
+- ✅ NO data exfiltration detected
+- ✅ NO virus/malware downloaded to device
+- ✅ NO lateral movement attempted
+- ⚠️ Spam notifications caused user disruption
+- ✅ Successfully remediated via notification blocking and URL blacklisting
+
+**Lessons Learned:**
+
+**Technical Improvements:**
+- Implement browser notification restrictions via Group Policy
+- Deploy URL filtering at DNS level (prevent access to malicious sites)
+- Enhance user endpoint controls (restrict notification permissions)
+- Add malicious URL categories to web filtering
+
+**User Awareness Gaps:**
+- Need for training on search result verification
+- CAPTCHA awareness (legitimate sites rarely use aggressive CAPTCHAs)
+- Browser notification permission education
+- Reporting procedures reinforcement
+
+**Process Improvements:**
+- Document common social engineering tactics for quick reference
+- Create user-facing guidance on notification permissions
+- Establish regular user security awareness training
+- Update IR playbook with notification abuse scenario
+
+### Skills Demonstrated
+
+**Incident Response:**
+- Systematic IR methodology (Identify, Contain, Eradicate, Recover, Lessons Learned)
+- Live incident coordination and documentation
+- Evidence-based decision making
+- Timeline reconstruction and analysis
+
+**Forensic Skills:**
+- Order of volatility understanding
+- Chain of custody maintenance
+- Evidence collection and preservation
+- Forensic imaging and hashing
+- Data integrity verification
+
+**Technical Analysis:**
+- SIEM log analysis and correlation (Splunk)
+- EDR platform usage (CrowdStrike)
+- Network traffic analysis (Wireshark)
+- Threat intelligence integration (VirusTotal)
+- IOC extraction and analysis
+
+**Tool Proficiency:**
+- Enterprise EDR console operation
+- SIEM query development and analysis
+- Network protocol analysis
+- Sandbox investigation techniques
+- Threat intelligence platforms
+
+**Communication & Documentation:**
+- Professional IR plan documentation
+- Clear step-by-step procedures
+- Technical and non-technical communication
+- Lessons learned documentation
+- Compliance framework alignment
+
+### Compliance & Frameworks
+
+**Canadian Cyber Centre Guidelines:**
+
+- **ITSAP.40.003** - Developing Your Incident Response Plan
+- **ITSG-33 Annex 3A** - Security Control Catalogue
+- **ITSAP.40.002** - Backing Up Your Information
+
+**IR Best Practices Applied:**
+- Documented procedures for repeatability
+- Evidence handling for legal admissibility
+- Compliance with government security standards
+- Post-incident review and improvement
+
+### Real-World Applications
+
+**This IR plan applies to:**
+
+**Corporate Security Operations:**
+- SOC analyst incident handling
+- Tier 1/2 incident response procedures
+- Escalation and handoff protocols
+- Evidence collection for forensics
+
+**Digital Forensics:**
+- Proper evidence preservation
+- Chain of custody maintenance
+- Forensic imaging procedures
+- Timeline reconstruction methodology
+
+**Malware Analysis:**
+- Sample collection and handling
+- Sandbox analysis techniques
+- IOC extraction and documentation
+- Threat intelligence integration
+
+**Compliance & Governance:**
+- Government security framework adherence
+- Documentation standards
+- Audit trail maintenance
+- Process improvement cycles
+
+### Key Takeaways
+
+1. **Early Containment Matters:** Network isolation prevents incident escalation
+2. **Order of Volatility:** Proper evidence collection sequence preserves critical data
+3. **Documentation is Critical:** Detailed notes enable forensic analysis and legal proceedings
+4. **Tool Integration:** Multiple tools (EDR, SIEM, threat intel) provide complete picture
+5. **User Factor:** Social engineering remains effective attack vector requiring awareness training
+6. **Lessons Learned:** Post-incident analysis drives security improvements
+
+### Why This Matters for Forensics Career
+
+**IR and Forensics Connection:**
+
+- IR teams are first responders who collect initial evidence
+- Forensic analysts receive evidence from IR investigations
+- Understanding IR procedures ensures forensically sound evidence
+- IR documentation provides context for forensic examination
+- Chain of custody originates in IR phase
+
+**Skills Transfer:**
+- Evidence handling procedures identical in IR and forensics
+- Timeline reconstruction fundamental to both disciplines
+- Tool proficiency (SIEM, EDR) applies to forensic investigations
+- Documentation standards critical for both fields
+
+---
+
+**Full incident response plan with detailed procedures, tool usage, and compliance framework alignment available in portfolio.**
+
+*This project demonstrates practical incident response planning, forensic evidence handling, enterprise security tool proficiency, and compliance with Canadian government cybersecurity standards - essential skills for digital forensics and incident response roles.*
+
 ---
 
 ## Hands-On Vulnerability Remediation: Nessus Security Assessment
