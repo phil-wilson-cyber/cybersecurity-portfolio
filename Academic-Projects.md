@@ -303,135 +303,184 @@ Investigate a USB drive image (RHINOUSB.dd) to recover deleted files and determi
 sudo foremost -v -t jpg,gif,pdf,ole -i /dev/loop0 -o /home/sansforensics/Desktop/Rhino\ Output**
 ```
 
-## Incident Response Procedures
+**Recovery Results:**
+- 2 GIF files recovered
+- 7 JPG files recovered  
+- 1 DOC file recovered
+- 1 OLE file recovered
 
-### Project Overview
+**Total artifacts:** 11 files carved from deleted space
 
-**Type:** Incident Response Planning & Execution  
-**Framework:** Industry best practices for IR  
-**Format:** Documentation + Tabletop Exercise
+#### Phase 3: Evidence Analysis
 
-**Objective:**  
-Develop comprehensive incident response procedures and practice execution through simulated security incidents.
+**Document Analysis:**
+- Examined recovered .doc file for case-relevant information
+- Document contained critical evidence about incident
+- Information revealed disposition of hard drive
 
-### Components Developed
+**Key Finding:**
 
-**IR Documentation:**
-- Incident response playbooks for common scenarios
-- Escalation procedures and contact lists
-- Evidence collection checklists
-- Communication templates
-- Post-incident review processes
-
-**Scenarios Practiced:**
-- Malware outbreak response
-- Data breach investigation
-- Ransomware incident handling
-- Insider threat detection
-- DDoS attack mitigation
-
-### Skills Demonstrated
-
-- Incident classification and severity assessment
-- Rapid triage and initial response
-- Evidence preservation during active incidents
-- Stakeholder communication during crises
-- Post-incident analysis and lessons learned
-
-### Key Takeaways
-
-Understanding that incident response requires:
-- Pre-planned procedures (can't figure it out during crisis)
-- Clear roles and responsibilities
-- Balance between speed and evidence preservation
-- Communication with both technical and executive stakeholders
-- Continuous improvement through post-incident reviews
+Through analysis of recovered documents, determined that **the hard drive was physically destroyed ("zapped") and disposed of in the Mississippi River** - indicating potential evidence destruction and obstruction.
 
 ---
 
-## MITRE ATT&CK Framework Application
+## Incident Response Planning & Execution: Malware Threat Response
 
 ### Project Overview
 
-**Type:** Threat Analysis & Detection Development  
-**Framework:** MITRE ATT&CK  
-**Format:** Analysis + Detection Rules
+**Type:** Incident Response Plan & Playbook Development  
+**Scenario:** Malware infection investigation and remediation  
+**Framework:** Canadian Cyber Centre ITSAP.40.003, ITSG-33  
+**Format:** Professional IR documentation with step-by-step procedures
+
+[**📄 View Full Incident Response Plan (PDF)**](./Incident_Response_Plan_Malware_Threat.pdf)
 
 **Objective:**  
-Apply MITRE ATT&CK framework to understand adversary tactics and techniques, then develop detection strategies.
+Develop comprehensive incident response procedures for handling malware threats, including identification, containment, eradication, recovery, and lessons learned. Document using enterprise security tools and Canadian government security frameworks.
 
-### Project Components
+**Scenario Background:**  
+User reported suspected malware infection on endpoint device. Investigation required systematic approach to determine scope, contain threat, preserve evidence, and remediate while maintaining forensic integrity.
 
-**Threat Analysis:**
-- Mapping real-world attack campaigns to ATT&CK techniques
-- Understanding adversary TTPs (Tactics, Techniques, Procedures)
-- Identifying detection opportunities for each technique
-- Prioritizing defenses based on threat landscape
+### Executive Summary
 
-**Detection Development:**
-- Creating detection rules for specific ATT&CK techniques
-- Identifying log sources needed for detection
-- Developing investigation playbooks per technique
-- Testing detection effectiveness
+This IR plan outlines the complete response process for potential malware incidents, from initial report through post-incident review. The plan incorporates enterprise security tools (CrowdStrike EDR, Splunk SIEM, Wireshark), forensic evidence handling procedures, and compliance with Canadian cybersecurity standards.
 
-### Skills Demonstrated
+**Key Components:**
+- Device isolation and containment procedures
+- Forensic evidence collection and preservation
+- Timeline reconstruction and scope determination
+- Malware analysis and threat assessment
+- Remediation and recovery procedures
+- Root cause analysis and lessons learned
 
-- Understanding adversary behavior and methodology
-- Translating threat intelligence into actionable defenses
-- Detection engineering fundamentals
-- Use of industry-standard threat framework
-- Defensive strategy development
+### Tools & Technologies
 
-### Real-World Application
+**Security Information & Event Management (SIEM):**
+- **Splunk** - Log aggregation, correlation, and analysis
+- Index searching for web traffic and user activity
+- Timeline analysis for incident reconstruction
 
-MITRE ATT&CK is the industry standard for:
-- Threat intelligence analysis
-- SOC detection rule development
-- Red team/blue team exercises
-- Security control gap analysis
-- Incident investigation and attribution
+**Endpoint Detection & Response (EDR):**
+- **CrowdStrike Falcon** - Enterprise endpoint security console
+- Host isolation and network containment
+- Malware detection and system monitoring
+- Endpoint forensic data collection
 
----
+**Network Analysis:**
+- **Wireshark** - Network protocol analysis and packet capture
+- Traffic pattern analysis for data exfiltration detection
+- Network-based IOC identification
 
-## Vulnerability Assessment Projects
+**Threat Intelligence:**
+- **VirusTotal** - OSINT malware scanning and URL reputation
+- Suspicious file and URL analysis
+- IOC correlation and threat identification
 
-### Project Overview
+### Incident Response Phases
 
-**Type:** Technical Security Assessment  
-**Tools:** Vulnerability scanners, manual testing  
-**Format:** Technical Report + Remediation Plan
+#### Phase 1: Identification & Containment
 
-**Objective:**  
-Conduct vulnerability assessments of systems and networks, analyze findings, and provide remediation recommendations.
+**Initial Response Actions:**
 
-### Assessment Activities
+1. **Device Verification**
+   - Confirm device is organization-managed
+   - Identify endpoint hostname and user
+   - Document initial user report details
 
-**Technical Scanning:**
-- Network vulnerability scanning
-- Web application security testing
-- Configuration review and hardening
-- Patch management assessment
-- Security control verification
+2. **Network Isolation**
+   - Access CrowdStrike Console
+   - Navigate to Host Setup and Management
+   - Search for affected endpoint by hostname
+   - Execute network containment: Isolate device from network
+   - **Purpose:** Prevent malware spread and lateral movement within internal network
 
-**Risk Analysis:**
-- Vulnerability severity classification
-- Business impact assessment
-- Exploitability evaluation
-- Risk prioritization
+3. **User Communication**
+   - Assign IR team member to contact user
+   - Gather initial information:
+     - User activities before incident
+     - Symptoms observed
+     - Approximate timeline
+     - Recent downloads or website visits
 
-**Remediation Planning:**
-- Specific remediation steps for each finding
-- Prioritization based on risk
-- Compensating controls where patching not possible
-- Validation and re-testing procedures
+4. **Documentation Initiation**
+   - Create live incident documentation
+   - Include: Notes, screenshots, tools used, processes followed
+   - Maintain running timeline of investigation
 
-### Skills Demonstrated
+**Forensic Consideration:**  
+Early containment prevents evidence destruction while maintaining system state for analysis.
 
-- Vulnerability assessment methodology
-- Risk analysis and prioritization
-- Technical report writing
-- Remediation planning
-- Understanding of common vulnerabilities and misconfigurations
+#### Phase 2: Scope Determination & Evidence Collection
+
+**Investigation Activities:**
+
+**Firewall Log Review:**
+- Check for suspicious outbound traffic patterns
+- Identify unusual destination IPs or domains
+- Look for data exfiltration indicators (large outbound transfers)
+
+**Windows Event Log Analysis:**
+
+Indicators of Compromise (IOCs) to identify:
+- **Data Exfiltration:** Large amounts of COPY operations
+- **Time Anomalies:** Unusual login times/dates (after-hours access)
+- **Account Activity:** Abnormal user behavior patterns
+- **Process Execution:** Unexpected program launches
+
+**EDR System Detection Review:**
+
+Using CrowdStrike Falcon console:
+- Review detection alerts and quarantined items
+- Identify downloaded files and execution history
+- Check for persistence mechanisms
+- Analyze process tree for malicious activity
+
+**Decision Point: Malicious File Download Detected?**
+
+**If NO malicious files downloaded:**
+- Proceed to Phase 3 (Damage Assessment)
+
+**If YES - malicious file confirmed:**
+
+**Forensic Evidence Collection Protocol:**
+
+1. **System Imaging**
+   - Create forensic image of infected system
+   - Use write-blocker to prevent evidence alteration
+   - Generate hash values for image verification
+
+2. **Order of Volatility Data Capture**
+   
+   Collect evidence from most volatile (spontaneously changing) to least:
+   - CPU registers and cache
+   - RAM contents (memory dump)
+   - Network connections and routing tables
+   - Running processes and loaded modules
+   - Temporary file systems
+   - Disk storage
+   - Remote logging data
+   - Physical configuration and topology
+
+3. **Data Integrity Verification**
+   - Create cryptographic hash (MD5, SHA-256) of all collected evidence
+   - Document hash values for chain of custody
+   - Verify hashes after evidence transfer
+
+4. **Chain of Custody Documentation**
+   - Record who collected evidence, when, and how
+   - Document evidence storage and handling
+   - Maintain unbroken custody trail for legal admissibility
+
+5. **Escalation & Handoff**
+   - Escalate to Incident Response Team Lead
+   - Prepare evidence package for Digital Forensics team
+   - Transfer to Malware Analysis Team for deep-dive investigation
+   - Provide complete documentation and timeline
+
+6. **System Recovery**
+   - Determine earliest known-good backup point
+   - Restore device from clean backup (if available)
+   - Verify restored system integrity before reconnection
 
 ---
 
@@ -568,8 +617,11 @@ sudo ufw status              # Verify rule active
 
 **Solution Implemented:**
 
-SSH Configuration Hardening - Modified SSH config file with new MAC configuration: MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,
+SSH Configuration Hardening - Modified SSH config file with new MAC configuration: 
+```
+MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,
 hmac-ripemd160-etm@openssh.com,umac-128-etm@openssh.com, hmac-sha2-512,hmac-sha2-256,hmac-ripemd160,umac-128@openssh.com
+```
 
 **Cryptographic Improvements:**
 - Removed MD5-based MAC algorithms
