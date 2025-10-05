@@ -16,7 +16,6 @@ All projects were completed to professional standards with comprehensive documen
 **Client:** Simulated engagement for "EvilCorp"  
 **Team:** 4-person security team (Cyber Genuis INC)  
 **Team Members:** Josh Veinotte, John Mulumba, Philip Wilson, Mathura Mangaleswarren  
-**Completed:** December 2022  
 **Methodology:** NIST Cybersecurity Framework  
 **Model:** Black Box Testing  
 **Deliverable:** Professional penetration testing report
